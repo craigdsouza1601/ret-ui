@@ -44,7 +44,7 @@ const History = () => {
       <DataGrid
         rows={rows}
         columns={columns}
-        pageSize={12}
+        pageSize={50}
         sx={{
             boxShadow: 2,
             border: 2,
