@@ -13,7 +13,7 @@ import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import { Link } from 'react-router-dom';
 
 
-const pages = ['history'];
+const pages = ['history','login','register','upload'];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -28,7 +28,7 @@ const ResponsiveAppBar = () => {
 
 
   return (
-    <AppBar   position="static" style={{ background: '#000' }}>
+    <AppBar   position="static" sx={{bgcolor: '#000' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <RemoveRedEyeOutlinedIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -40,9 +40,7 @@ const ResponsiveAppBar = () => {
             sx={{
               mr: 7.5,
               display: { xs: 'none', md: 'flex' },
-              // fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.1rem',
+              fontWeight: 500,
               color: 'inherit',
               textDecoration: 'none',
             }}
@@ -50,17 +48,12 @@ const ResponsiveAppBar = () => {
             <Link to='/'  style={{textDecoration: 'none', color:'white'}}>Glaucoma Detection</Link>
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' },  }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block'
-                // , fontFamily: 'monospace' 
-              }}
-              >
-                <Link to={`/${page}`} style={{textDecoration: 'none', color:'white'}} >{page.toUpperCase()}</Link>
-              </Button>
+          <Box
+           display="flex"
+           justifyContent="flex-end"
+           sx={{  display: { xs: 'none', md: 'flex' },  }} >
+            {pages.map((page) => (              
+                <Typography sx={{m:1 , color:'white', }}><Link to={`/${page}`} onClick={handleCloseNavMenu} style={{textDecoration: 'none', color:'white', }} >{page.charAt(0).toUpperCase()+page.slice(1)}</Link></Typography>
             ))}
           </Box>
 

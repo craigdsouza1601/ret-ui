@@ -49,12 +49,7 @@ const History = () => {
             boxShadow: 2,
             border: 2,
             borderColor: '#000',
-            '& .MuiDataGrid-iconSeparator': {
-                color: '#a9a9a9',
-              },
-            '& .MuiDataGrid-cell': {
-                backgroundColor: '#ececec',
-            },
+            
               
           }}
       />
