@@ -1,13 +1,13 @@
-.home{
+.upload{
     text-align: center;
     font-family: 'roboto';
 }
 
-.home h1{
+.upload h1{
     margin: 3.5rem auto auto auto;
 }
 
-.home img{
+.upload img{
     width: 20rem;
     border-radius: 1rem;
     margin-top: 2%;

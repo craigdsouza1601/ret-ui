@@ -20,7 +20,7 @@ const handleDelete = () => {
 }
 
   return (
-    <Grid className='home' container spacing={2} direction="row" justifyContent="center" alignItems="center">
+    <Grid className='upload' container spacing={2} direction="row" justifyContent="center" alignItems="center">
         <Grid item xs={12}>
             {!image && <Typography component='h1' variant="h4">Upload your Image</Typography>}
         </Grid>

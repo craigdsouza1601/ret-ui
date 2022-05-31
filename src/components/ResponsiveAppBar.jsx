@@ -13,7 +13,7 @@ import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import { Link } from 'react-router-dom';
 
 
-const pages = ['history','login','register','upload'];
+const pages = ['login','register','history','upload'];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
