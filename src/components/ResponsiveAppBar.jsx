@@ -104,7 +104,7 @@ const ResponsiveAppBar = () => {
           </Box>
 
           <RemoveRedEyeOutlinedIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} size= "large"/>
-          <Typography
+          {/* <Typography
             variant="h5"
             noWrap
             component="a"
@@ -113,15 +113,14 @@ const ResponsiveAppBar = () => {
               mr: 2,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.1rem',
+              fontWeight: 500,
+              letterSpacing: '.01rem',
               color: 'inherit',
               textDecoration: 'none',
             }}
           >
             GD
-          </Typography>
+          </Typography> */}
 
 
         </Toolbar>

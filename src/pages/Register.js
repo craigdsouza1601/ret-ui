@@ -1,20 +1,48 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 const theme = createTheme();
+
+const genders = [
+  {
+    value: 'male',
+    label: 'Male',
+  },
+  {
+    value: 'female',
+    label: 'Female',
+  },
+  {
+    value: 'undefined',
+    label: 'Undefined',
+  },
+  
+];
+
+const accounts = [
+  {
+    value: 'admin',
+    label: 'Admin',
+  },
+  {
+    value: 'doctor',
+    label: 'Doctor',
+  },
+  {
+    value: 'patient',
+    label: 'Patient',
+  },
+  
+];
 
 export default function SignUp() {
   const handleSubmit = (event) => {
@@ -63,6 +91,48 @@ export default function SignUp() {
                   name="lastName"
                   autoComplete="family-name"
                 />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+              <TextField
+                  required
+                  fullWidth
+                  id="date"
+                  label="Date of Birth"
+                  type="date"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                required
+                id="sex"
+                select
+                label="Sex"
+              >
+                {genders.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+              </Grid>
+              <Grid item xs={12}>
+              <TextField
+                fullWidth
+                required
+                id="account"
+                select
+                label="Account Type"
+              >
+                {accounts.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
               </Grid>
               <Grid item xs={12}>
                 <TextField

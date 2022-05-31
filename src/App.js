@@ -28,12 +28,12 @@ function App() {
   useEffect(()=> {
     const userData = { 
       id: 1, 
-      lastName: 'Snow', 
-      firstName: 'Jon', 
-      age: 35, 
+      lastName: 'DSouza', 
+      firstName: 'Craig', 
+      age: 22, 
       date: '2000-01-16', 
-      prediction: 'Yes', 
-      probability: 0.92
+      sex: 'Male',
+      type: 'admin' 
     }
 
     dispatch(userActions.login(userData))

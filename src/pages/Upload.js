@@ -27,7 +27,7 @@ const handleDelete = () => {
         <Grid item xs={12}>
             <div>
               {image && <><img src={image} alt="uploaded" />
-              <Typography><p>Proceed with given image?</p></Typography>
+              <Typography component='div' variant='subtitle1'>Proceed with given image?</Typography>
               </> }
             </div>
         </Grid>

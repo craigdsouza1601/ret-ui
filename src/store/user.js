@@ -6,8 +6,8 @@ const initialUserState = {
     firstName: null,
     age: null,
     date: null,
-    prediction: null,
-    probability: null,
+    sex: null,
+    email:null,
     password: null
 }
 
@@ -21,8 +21,8 @@ const userSlice = createSlice({
             state.firstName = action.payload.firstName;
             state.age = action.payload.age;
             state.date = action.payload.date;
-            state.prediction = action.payload.prediction;
-            state.probability = action.payload.probability;
+            state.sex = action.payload.sex;
+            state.email = action.payload.email;
             state.password = action.payload.password;
         },
 
@@ -32,8 +32,8 @@ const userSlice = createSlice({
             state.firstName = null
             state.age = null
             state.date = null
-            state.prediction = null
-            state.probability = null
+            state.sex = null
+            state.email = null
             state.password = null
         }
     }
