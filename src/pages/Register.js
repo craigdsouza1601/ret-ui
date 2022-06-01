@@ -8,7 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import { registerWithEmailAndPassword } from '../assets/firebase';
 
 const theme = createTheme();
 
@@ -45,13 +45,27 @@ const accounts = [
 ];
 
 export default function SignUp() {
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const email = data.get('email');
+    const password = data.get('password');
+    const firstName = data.get('firstName')
+    const lastName = data.get('lastName');
+    const dateOfBirth = data.get('date');
+    const sex = data.get('sex');
+    const type = data.get('type');
+    const userData = {
+      firstName,
+      lastName,
+      dateOfBirth,
+      sex,
+      type     
+    };
+
+    registerWithEmailAndPassword(userData,email,password)
   };
 
   return (
@@ -96,6 +110,7 @@ export default function SignUp() {
               <TextField
                   required
                   fullWidth
+                  name='date'
                   id="date"
                   label="Date of Birth"
                   type="date"
@@ -111,6 +126,7 @@ export default function SignUp() {
                 id="sex"
                 select
                 label="Sex"
+                name='sex'
               >
                 {genders.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
@@ -123,9 +139,10 @@ export default function SignUp() {
               <TextField
                 fullWidth
                 required
-                id="account"
+                id="type"
                 select
                 label="Account Type"
+                name='type'
               >
                 {accounts.map((option) => (
                   <MenuItem key={option.value} value={option.value}>

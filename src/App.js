@@ -30,14 +30,13 @@ function App() {
       id: 1, 
       lastName: 'D\'Souza', 
       firstName: 'Craig', 
-      age: 22, 
-      date: '2000-01-16', 
+      dateOfBirth: '2000-01-16', 
       sex: 'Male',
       type: 'admin' 
     }
 
     dispatch(userActions.login(userData))
-    console.log(user);
+    // console.log(user);
   },[dispatch])
 
   return (
