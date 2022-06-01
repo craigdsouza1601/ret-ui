@@ -1,127 +1,129 @@
-import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
+import Tooltip from '@mui/material/Tooltip';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import { Link } from 'react-router-dom';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import { logOut } from '../assets/firebase';
+import { useState, useEffect } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { useNavigate } from 'react-router';
+import { auth } from '../assets/firebase';
 
-
-const pages = ['login','register','history','upload'];
 
 const ResponsiveAppBar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  
+
+  const [user, loading, error] = useAuthState(auth)
+
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
 
   return (
-    <AppBar   position="static" sx={{bgcolor: '#000' }}>
+    <AppBar position="static" sx={{backgroundColor: '#000'}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <RemoveRedEyeOutlinedIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          
           <Typography
             variant="h6"
             noWrap
             component="a"
-            sx={{
-              mr: 7.5,
-              display: { xs: 'none', md: 'flex' },
-              fontWeight: 500,
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            <Link to='/'  style={{textDecoration: 'none', color:'white'}}>Glaucoma Detection</Link>
-          </Typography>
-
-          <Box
-           display="flex"
-           justifyContent="flex-end"
-           sx={{  display: { xs: 'none', md: 'flex' },  }} >
-            {pages.map((page) => (              
-                <Typography sx={{m:1 , color:'white', }}><Link to={`/${page}`} onClick={handleCloseNavMenu} style={{textDecoration: 'none', color:'white', }} >{page.charAt(0).toUpperCase()+page.slice(1)}</Link></Typography>
-            ))}
-          </Box>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-                // fontFamily: 'monospace'
-              }}>
-
-              {pages.map((page) => (
-
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography
-                   textAlign="center"
-                   sx={{
-                    // fontFamily: 'monospace'
-                  }}>
-                    <Link to={`/${page}`} style={{textDecoration: 'none', color:'black'}} >{page.toUpperCase()}</Link>
-                  </Typography>
-                </MenuItem>
-
-              ))}
-            </Menu>
-          </Box>
-
-          <RemoveRedEyeOutlinedIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} size= "large"/>
-          {/* <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
+            href="/"
             sx={{
               mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
+              display: { xs: 'none', md: 'flex' },
               fontWeight: 500,
               letterSpacing: '.01rem',
               color: 'inherit',
               textDecoration: 'none',
             }}
           >
-            GD
-          </Typography> */}
+            Glaucoma Detection
+          </Typography>
 
+          <RemoveRedEyeOutlinedIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <Typography
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+              {/* <Button
+                component={Link}
+                to='/history'
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                History
+              </Button>            */}
+          </Box>
 
+          {user && (<Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <AccountCircleOutlinedIcon sx={{color: '#fff'}} />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography component={Link} to='/history' textAlign="center"  sx={{textDecoration: 'none'}}>History</Typography>
+                </MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography component={Link} to='/register' textAlign="center" sx={{textDecoration: 'none'}}>Add User</Typography>
+                </MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography component={Link} to='/upload' textAlign="center" sx={{textDecoration: 'none'}}>Upload</Typography>
+                </MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography component={Link} to='/' onClick={()=>{logOut()}} textAlign="center" sx={{textDecoration: 'none'}}>Log Out</Typography>
+                </MenuItem>
+                
+                
+            </Menu>
+          </Box>)}
         </Toolbar>
       </Container>
     </AppBar>

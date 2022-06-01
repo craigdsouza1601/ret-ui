@@ -9,11 +9,24 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { logInWithEmailPassword } from '../assets/firebase';
-
-
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { useNavigate } from 'react-router';
+import { useEffect } from 'react';
+import { auth } from '../assets/firebase';
+ 
 const theme = createTheme();
 
 export default function SignIn() {
+
+  const [user, loading, error] = useAuthState(auth)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if(user){
+      navigate("/")
+    }
+  },[user])
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);

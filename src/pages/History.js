@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { renderProgress } from '@mui/x-data-grid-generator';
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { useNavigate } from 'react-router';
+import { useEffect } from 'react';
+import { auth } from '../assets/firebase';
 
 const columns = [
   { field: 'id', headerName: 'Patient ID', flex: 1, hideable: false, headerAlign: 'center' },
@@ -16,6 +20,15 @@ const columns = [
 
 
 const History = () => {
+
+  const [user, loading, error] = useAuthState(auth)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if(!user){
+      navigate("/login")
+    }
+  },[user])
 
     const rows = [
         { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35, date: '2000-01-16', prediction: 'Yes', probability: 0.92 },

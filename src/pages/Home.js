@@ -6,11 +6,23 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import { useSelector } from 'react-redux';
 import './Home.css'
 import { Link } from 'react-router-dom';
-
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { useNavigate } from 'react-router';
+import { useEffect } from 'react';
+import { auth } from '../assets/firebase';
 
 const Home = () => {
 
   const user = useSelector(state => state.user)
+
+  const [user1, loading, error] = useAuthState(auth)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if(!user1){
+      navigate("/login")
+    }
+  },[user1])
 
   return (
     <Container component='main' maxWidth='sm' >

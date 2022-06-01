@@ -4,14 +4,27 @@ import { Button, Grid, Input, Typography } from '@mui/material'
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { useNavigate } from 'react-router';
+import { useEffect } from 'react';
+import { auth } from '../assets/firebase';
 
 const Upload = () => {
 
   const [image, setImage] = useState(null);
 
+  const [user1, loading, error] = useAuthState(auth)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if(!user1){
+      navigate("/login")
+    }
+  },[user1])
+
   const handleUpload = (event) => {
-    // eslint-disable-next-line
-    const { name, files } = event.target;
+
+    const { files } = event.target;
     setImage(URL.createObjectURL(files[0]));
 };
 
