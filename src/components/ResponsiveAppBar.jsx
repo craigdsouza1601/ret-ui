@@ -109,16 +109,16 @@ const ResponsiveAppBar = () => {
               onClose={handleCloseUserMenu}
             >
                 <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography component={Link} to='/history' textAlign="center"  sx={{textDecoration: 'none'}}>History</Typography>
+                  <Typography component={Link} to='/history' textAlign="center"  sx={{textDecoration: 'none', color: '#000'}}>History</Typography>
                 </MenuItem>
                 <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography component={Link} to='/register' textAlign="center" sx={{textDecoration: 'none'}}>Add User</Typography>
+                  <Typography component={Link} to='/register' textAlign="center" sx={{textDecoration: 'none', color: '#000'}}>Add User</Typography>
                 </MenuItem>
                 <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography component={Link} to='/upload' textAlign="center" sx={{textDecoration: 'none'}}>Upload</Typography>
+                  <Typography component={Link} to='/upload' textAlign="center" sx={{textDecoration: 'none', color: '#000'}}>Upload</Typography>
                 </MenuItem>
                 <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography component={Link} to='/' onClick={()=>{logOut()}} textAlign="center" sx={{textDecoration: 'none'}}>Log Out</Typography>
+                  <Typography component={Link} to='/' onClick={()=>{logOut()}} textAlign="center" sx={{textDecoration: 'none', color: '#000'}}>Log Out</Typography>
                 </MenuItem>
                 
                 
