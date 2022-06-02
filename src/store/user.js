@@ -8,7 +8,7 @@ const initialUserState = {
     date: null,
     sex: null,
     email:null,
-    password: null
+    type: null
 }
 
 const userSlice = createSlice({
@@ -16,14 +16,19 @@ const userSlice = createSlice({
     initialState: initialUserState,
     reducers:{
         login(state, action){
-            state.id = action.payload.id;
+            state.id = action.payload.uid;
             state.lastName = action.payload.lastName;
             state.firstName = action.payload.firstName;
-            state.age = action.payload.age;
+            var dob = new Date(action.payload.dateOfBirth);
+            var month_diff = Date.now() - dob.getTime();  
+            var age_dt = new Date(month_diff); 
+            var year = age_dt.getUTCFullYear();
+            var age = Math.abs(year - 1970);  
+            state.age = age;
             state.date = action.payload.date;
             state.sex = action.payload.sex;
             state.email = action.payload.email;
-            state.password = action.payload.password;
+            state.type = action.payload.type;
         },
 
         logout(state){
@@ -34,7 +39,7 @@ const userSlice = createSlice({
             state.date = null
             state.sex = null
             state.email = null
-            state.password = null
+            state.type = null
         }
     }
 })

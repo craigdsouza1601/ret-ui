@@ -18,27 +18,6 @@ import Home from './pages/Home';
 
 function App() {
 
-  const dispatch = useDispatch();
-  const user = useSelector(state => state.user)
-  console.log(user);
-
-
-
-
-  useEffect(()=> {
-    const userData = { 
-      id: 1, 
-      lastName: 'D\'Souza', 
-      firstName: 'Craig', 
-      dateOfBirth: '2000-01-16', 
-      sex: 'Male',
-      type: 'admin' 
-    }
-
-    dispatch(userActions.login(userData))
-    // console.log(user);
-  },[dispatch])
-
   return (
       <BrowserRouter>
       <ResponsiveAppBar />

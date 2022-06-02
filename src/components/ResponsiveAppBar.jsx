@@ -15,14 +15,14 @@ import { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useNavigate } from 'react-router';
 import { auth } from '../assets/firebase';
-
+import { useSelector } from 'react-redux';
 
 const ResponsiveAppBar = () => {
-
   const [user, loading, error] = useAuthState(auth)
 
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const userLoggedIn = useSelector(state => state.user)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -111,12 +111,12 @@ const ResponsiveAppBar = () => {
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Typography component={Link} to='/history' textAlign="center"  sx={{textDecoration: 'none', color: '#000'}}>History</Typography>
                 </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
+                {userLoggedIn.type == "admin" && (<MenuItem onClick={handleCloseUserMenu}>
                   <Typography component={Link} to='/register' textAlign="center" sx={{textDecoration: 'none', color: '#000'}}>Add User</Typography>
-                </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
+                </MenuItem>)}
+                {userLoggedIn.type != "patient" && (<MenuItem onClick={handleCloseUserMenu}>
                   <Typography component={Link} to='/upload' textAlign="center" sx={{textDecoration: 'none', color: '#000'}}>Upload</Typography>
-                </MenuItem>
+                </MenuItem>)}
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Typography component={Link} to='/' onClick={()=>{logOut()}} textAlign="center" sx={{textDecoration: 'none', color: '#000'}}>Log Out</Typography>
                 </MenuItem>

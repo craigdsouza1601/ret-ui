@@ -13,6 +13,12 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
 import { auth } from '../assets/firebase';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '../assets/firebase';
+import { async } from '@firebase/util';
+import { useDispatch } from 'react-redux';
+import { userActions } from '../store/user';
+import CircularProgress from '@mui/material/CircularProgress';
  
 const theme = createTheme();
 
@@ -20,12 +26,26 @@ export default function SignIn() {
 
   const [user, loading, error] = useAuthState(auth)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-  useEffect(() => {
+  useEffect( () => {
     if(user){
+      var userData = {}
       navigate("/")
+      const getUserData = async () => {
+        const q = query(collection(db, "users"), where("uid", "==", user.uid));
+          const res = await getDocs(q)
+          res.forEach((doc) => {
+            userData = doc.data();
+          });
+          console.log(userData);
+          dispatch(userActions.login(userData))
+      }
+      getUserData();
+      
     }
   },[user])
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -37,7 +57,7 @@ export default function SignIn() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      {loading ? <CircularProgress/> : (<Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
@@ -84,7 +104,7 @@ export default function SignIn() {
             </Button>
           </Box>
         </Box>
-      </Container>
+      </Container>)}
     </ThemeProvider>
   );
 }

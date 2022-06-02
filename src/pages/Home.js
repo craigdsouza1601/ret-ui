@@ -39,7 +39,7 @@ const Home = () => {
             <AccountCircleOutlinedIcon/>
           </Avatar>
         <Typography component="h1" variant="h4" sx={{m:1}}>
-            Welcome  {user.firstName+" "+user.lastName}
+            Welcome  {user.firstName && user.firstName+" "+user.lastName}
           </Typography>
       </Box>
 
@@ -48,14 +48,17 @@ const Home = () => {
           <Grid item xs={12} sx={{m:1}} >
             <Typography variant='subtitle1'><b>User ID: </b>{user.id}</Typography>
           </Grid>
+          <Grid item xs={12} sx={{m:1}} >
+            <Typography variant='subtitle1'><b>Account type: </b>{user.type ? user.type.charAt(0).toUpperCase()+user.type.slice(1) : "Null"}</Typography>
+          </Grid>
           <Grid item xs={12} sx={{m:1}}>
-            <Typography  variant='subtitle1'><b>Email: </b>{user.email}</Typography>
+            <Typography  variant='subtitle1'><b>Email: </b>{user.email && user.email}</Typography>
           </Grid>
           <Grid item xs={12} sx={{m:1}}>
             <Typography  variant='subtitle1'><b>Age: </b>{user.age}</Typography>
           </Grid>
           <Grid item xs={12} sx={{m:1}}>
-            <Typography  variant='subtitle1'><b>Gender: </b>{user.sex}</Typography>
+            <Typography  variant='subtitle1'><b>Gender: </b>{user.sex ? user.sex.charAt(0).toUpperCase()+user.sex.slice(1) : "Null"}</Typography>
           </Grid>
           <Grid item xs={12} sx={{m:1}}>
           <Button component={Link} to='/history' variant="contained">View Diagnosis History</Button>

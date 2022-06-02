@@ -18,6 +18,7 @@ import {
 } from "firebase/firestore";
 import { useDebugValue } from "react";
 
+
 const firebaseConfig = {
     apiKey: "AIzaSyCGXR_riK7JCLkpKFeX5dV0zw3_ukGxLt8",
     authDomain: "ret-ui.firebaseapp.com",
@@ -36,7 +37,7 @@ export const logInWithEmailPassword = async (email, password) => {
     
     try {
         const res = await signInWithEmailAndPassword(auth, email, password)
-        console.log(res.user);
+        //console.log(res.user);
     } catch (error) {
         console.log(error.message);
     }
@@ -56,7 +57,7 @@ export const registerWithEmailAndPassword = async (userData,email, password) => 
         sex: userData.sex,
         type: userData.type
       });
-
+      alert("User Added")
     } catch (err) {
       console.error(err);
       alert(err.message);

@@ -8,11 +8,13 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { registerWithEmailAndPassword } from '../assets/firebase';
+import { logInWithEmailPassword, logOut, registerWithEmailAndPassword } from '../assets/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
 import { auth } from '../assets/firebase';
+import { useSelector } from 'react-redux';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const theme = createTheme();
 
@@ -52,7 +54,9 @@ export default function SignUp() {
 
   const [user, loading, error] = useAuthState(auth)
   const navigate = useNavigate()
+  const userAdmin = useSelector(state => state.user)
 
+  const [adminPassword, setAdminPassword] = React.useState("")
   useEffect(() => {
     if(!user){
       navigate("/login")
@@ -64,7 +68,8 @@ export default function SignUp() {
     
     const data = new FormData(event.currentTarget);
     const email = data.get('email');
-    const password = data.get('password');
+    const password = data.get('email');
+    const adminPass = data.get('password');
     const firstName = data.get('firstName')
     const lastName = data.get('lastName');
     const dateOfBirth = data.get('date');
@@ -79,11 +84,13 @@ export default function SignUp() {
     };
 
     registerWithEmailAndPassword(userData,email,password)
+    logOut()
+    logInWithEmailPassword(userAdmin.email,adminPass)
   };
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      {loading ? <CircularProgress/> : (<Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
@@ -174,15 +181,16 @@ export default function SignUp() {
                   autoComplete="email"
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} >
                 <TextField
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  label="Admin Password"
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  
                 />
               </Grid>
             </Grid>
@@ -197,7 +205,7 @@ export default function SignUp() {
 
           </Box>
         </Box>
-      </Container>
+      </Container>)}
     </ThemeProvider>
   );
 }
