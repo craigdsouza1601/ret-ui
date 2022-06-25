@@ -20,14 +20,14 @@ import { useDebugValue } from "react";
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCGXR_riK7JCLkpKFeX5dV0zw3_ukGxLt8",
-    authDomain: "ret-ui.firebaseapp.com",
-    projectId: "ret-ui",
-    storageBucket: "ret-ui.appspot.com",
-    messagingSenderId: "488752189210",
-    appId: "1:488752189210:web:b0e6da4475f6e5ff2666a3",
-    measurementId: "G-YV3MFZ9TYP"
-  };
+  apiKey: "AIzaSyD4kXw0u9VS1Q8_7cSSMZ_LHNw1vAxhu40",
+  authDomain: "retina-database.firebaseapp.com",
+  projectId: "retina-database",
+  storageBucket: "retina-database.appspot.com",
+  messagingSenderId: "775180125520",
+  appId: "1:775180125520:web:48862b9448c2206eed1855",
+  measurementId: "G-79PMHGW695"
+};
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);

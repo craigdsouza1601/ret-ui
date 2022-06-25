@@ -8,6 +8,7 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
 import { auth } from '../assets/firebase';
+import { TextField, Box } from '@mui/material';
 
 const Upload = () => {
 
@@ -32,11 +33,29 @@ const handleDelete = () => {
     setImage(null);
 }
 
+const handleSubmit = (event) => {
+  event.preventDefault()
+  const data = new FormData(event.currentTarget);
+  const pid = data.get('patientId');
+  console.log(pid);
+}
+
   return (
+    <Box component="form" noValidate onSubmit={handleSubmit} >
     <Grid className='upload' container spacing={2} direction="row" justifyContent="center" alignItems="center">
         <Grid item xs={12}>
             {!image && <Typography component='h1' variant="h4">Upload your Image</Typography>}
         </Grid>
+        <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="given-name"
+                  name="patientId"
+                  required
+                  id="patientId"
+                  label="Patient ID"
+                  autoFocus
+                />
+              </Grid>
         <Grid item xs={12}>
             <div>
               {image && <><img src={image} alt="uploaded" />
@@ -64,9 +83,10 @@ const handleDelete = () => {
          <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={handleDelete}>Clear</Button>
         </Grid>
         <Grid item xs={12}>
-         <Button variant="contained" color="success" startIcon={<VisibilityOutlinedIcon />}>Submit</Button>
+         <Button type='submit' variant="contained" color="success" startIcon={<VisibilityOutlinedIcon />}>Submit</Button>
         </Grid></>}
     </Grid>
+    </Box>
   )
 }
 
