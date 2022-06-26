@@ -9,10 +9,13 @@ import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
 import { auth } from '../assets/firebase';
 import { TextField, Box } from '@mui/material';
+import axios from 'axios';
 
 const Upload = () => {
 
-  const [image, setImage] = useState(null);
+  const [imageURL, setImageURL] = useState(null);
+  const [image, setImage] = useState(null)
+
 
   const [user1, loading, error] = useAuthState(auth)
   const navigate = useNavigate()
@@ -26,25 +29,34 @@ const Upload = () => {
   const handleUpload = (event) => {
 
     const { files } = event.target;
-    setImage(URL.createObjectURL(files[0]));
+    setImageURL(URL.createObjectURL(files[0]));
+    setImage(files[0])
 };
 
 const handleDelete = () => {
-    setImage(null);
+    setImageURL(null);
 }
 
 const handleSubmit = (event) => {
   event.preventDefault()
-  const data = new FormData(event.currentTarget);
-  const pid = data.get('patientId');
-  console.log(pid);
+
+  const formData = new FormData(event.currentTarget);
+  formData.append('file', image);
+  for(var key of formData.entries()){
+    console.log(key[0] + ', ' + key[1]);
+  }
+  // axios.post("", formData).then((response) => {
+
+  // }, (error) => {
+  //   console.log(error);
+  // })
 }
 
   return (
     <Box component="form" noValidate onSubmit={handleSubmit} >
     <Grid className='upload' container spacing={2} direction="row" justifyContent="center" alignItems="center">
         <Grid item xs={12}>
-            {!image && <Typography component='h1' variant="h4">Upload your Image</Typography>}
+            {!imageURL && <Typography component='h1' variant="h4">Upload your Image</Typography>}
         </Grid>
         <Grid item xs={12} sm={6}>
                 <TextField
@@ -58,12 +70,12 @@ const handleSubmit = (event) => {
               </Grid>
         <Grid item xs={12}>
             <div>
-              {image && <><img src={image} alt="uploaded" />
+              {imageURL && <><img src={imageURL} alt="uploaded" />
               <Typography component='div' variant='subtitle1'>Proceed with given image?</Typography>
               </> }
             </div>
         </Grid>
-        {!image ? 
+        {!imageURL ? 
         
         <Grid item xs={12}>
 

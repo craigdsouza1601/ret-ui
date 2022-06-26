@@ -15,9 +15,8 @@ const columns = [
   { field: 'lastName', headerName: 'Last Name', flex: 1, hideable: false, headerAlign: 'center' },
   { field: 'age', headerName: 'Age', type: 'number', flex: 1, hideable: true, headerAlign: 'center'},
   { field: 'sex', headerName: 'Gender', flex: 1, hideable: true, headerAlign: 'center'},
-  { field: 'date', headerName: 'Date', type: 'date', flex: 1, hideable: true, headerAlign: 'center', valueGetter: ({ value }) => value && new Date(value)},
+  { field: 'diagnosisTime', headerName: 'Date', type: 'date', flex: 1, hideable: true, headerAlign: 'center', valueGetter: ({ value }) => value && new Date(value)},
   { field: 'diagnosisProb', headerName: 'Probability', flex: 1, renderCell: renderProgress, hideable: true, headerAlign: 'center' },
-  { field: 'prediction', headerName: 'Prediction', flex: 1, hideable: false, headerAlign: 'center' },
 ];
 
 
@@ -43,10 +42,6 @@ const History = () => {
         setHdata(data)
       }
       getHistoryData()
-
-      // allDiagnosis.map((data) => {
-      //   data.id = data.diagnosisId
-      // })
     
   },[hdata])
     
@@ -58,7 +53,7 @@ const History = () => {
       <DataGrid
         rows={rows}
         columns={columns}
-        pageSize={50}
+        pageSize={12}
         sx={{
             boxShadow: 2,
             border: 2,
